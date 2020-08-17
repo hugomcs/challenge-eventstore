@@ -23,6 +23,8 @@ import java.util.concurrent.locks.ReentrantLock;
  * <p><br>This implementation allows repeated events with the same type and timestamp. Two events are
  * never considered equal, unless it's the same object.
  *
+ * <p><br>NOTE: The evidence of thread-safety can be found at <i>#InMemoryEventStoreTest.testThreadSafe()</i>.
+ *
  * <p><br>NOTE: On a real application, we would possibly be able to assume that each inserted event is
  * always more recent than the others, and then generate the timestamp inside the server. This would
  * reduce the complexity of the {@link #insert(Event)} to a simple append. Since this is not specified,
