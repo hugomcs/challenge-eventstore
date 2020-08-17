@@ -3,7 +3,9 @@ package net.intelie.challenges;
 import java.util.Objects;
 
 /**
- * This is just an event stub, feel free to expand it if needed.
+ * An event with a type and timestamp.
+ *
+ * <p><br>Two events are never considered equal, unless it's the same object.
  */
 public class Event implements Comparable<Event> {
     private final String type;

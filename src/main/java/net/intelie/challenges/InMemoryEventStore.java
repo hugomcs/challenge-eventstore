@@ -20,6 +20,9 @@ import java.util.concurrent.locks.ReentrantLock;
  *
  * <p><br>This implementation is Thread-safe.
  *
+ * <p><br>This implementation allows repeated events with the same type and timestamp. Two events are
+ * never considered equal, unless it's the same object.
+ *
  * <p><br>NOTE: On a real application, we would possibly be able to assume that each inserted event is
  * always more recent than the others, and then generate the timestamp inside the server. This would
  * reduce the complexity of the {@link #insert(Event)} to a simple append. Since this is not specified,
@@ -32,6 +35,11 @@ import java.util.concurrent.locks.ReentrantLock;
  * on the {@link #query(String, long, long)} method because it would impact directly on the user experience
  * on a real application, and the insert and remove methods could be called in an asynchronous way, without
  * compromising the application performance.
+ *
+ * <p><br>NOTE: It also would be possible to index the events by the timestamp, mapping it to the index of
+ * the main array. This would give us the capability to perform the {@link #query(String, long, long)}
+ * operation in O(1) time complexity, at the cost of more memory usage, code complexity, and the necessity
+ * of refactoring the timestamp map every time a new event is inserted or removed.
  *
  * @author Hugo Saldanha (saldanha.hugo@gmail.com)
  */
