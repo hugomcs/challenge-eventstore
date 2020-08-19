@@ -68,8 +68,8 @@ public class InMemoryEventStore implements EventStore {
             lock = locks.computeIfAbsent(event.type(), k -> new ReentrantLock());
         }
         lock.lock();
-        List<Event> list = events.computeIfAbsent(event.type(), k -> new ArrayList<>());
         try {
+            List<Event> list = events.computeIfAbsent(event.type(), k -> new ArrayList<>());
             int idx = -(Collections.binarySearch(list, event))-1; // This runs in O(log(n))
             list.add(idx, event); // This runs in O(n) because of the shifts to the right
         } finally {
